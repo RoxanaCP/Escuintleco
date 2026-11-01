@@ -1,0 +1,22 @@
+@import '../shared-styles';
+
+.caja-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 16px;
+}
+.caja-card {
+  background: white; border-radius: 12px; padding: 28px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  h3 { margin: 0 0 20px; color: #1a237e; }
+  &.apertura { border-top: 4px solid #2e7d32; }
+  &.cierre   { border-top: 4px solid #c62828; }
+}
+.resumen {
+  margin-bottom: 20px;
+  .resumen-row {
+    display: flex; justify-content: space-between;
+    padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px;
+    &.total { font-size: 18px; font-weight: 700; color: #1a237e; border-bottom: none; border-top: 2px solid #1a237e; margin-top: 8px; padding-top: 12px; }
+  }
+}
+.cierre-btn { background: #c62828; &:hover { background: #b71c1c; } }
+.vista-nota { text-align: center; color: #ff6f00; font-size: 13px; }

@@ -1,0 +1,124 @@
+<div class="page-container">
+  <div class="page-header">
+    <div>
+      <h1>Prototipo de Promociones</h1>
+      <p>Configura ejemplos de beneficios para tus clientes</p>
+    </div>
+    <a routerLink="/dashboard" class="btn-back">&#8592; Volver</a>
+  </div>
+
+  <section class="promotion-types" aria-label="Tipos de promoción">
+    <button
+      *ngFor="let tipo of tipos"
+      type="button"
+      class="type-card"
+      [class.selected]="tipoSeleccionado === tipo.id"
+      (click)="seleccionarTipo(tipo.id)">
+      <span class="type-card-title">{{ tipo.titulo }}</span>
+      <span class="type-card-description">{{ tipo.descripcion }}</span>
+    </button>
+  </section>
+
+  <div class="promotion-layout">
+    <section class="config-card">
+      <h2>{{ tituloTipo(tipoSeleccionado) }}</h2>
+      <p class="section-description">Completa los datos para crear una vista previa de la promoción.</p>
+      <div class="alert-error" *ngIf="error">{{ error }}</div>
+
+      <div class="form-group">
+        <label for="nombre-promocion">Nombre de la promoción *</label>
+        <input id="nombre-promocion" [(ngModel)]="formulario.nombre" type="text" placeholder="Ej. Regalo de temporada" />
+      </div>
+
+      <ng-container [ngSwitch]="tipoSeleccionado">
+        <div *ngSwitchCase="'producto-gratis'" class="form-grid type-fields">
+          <div class="form-group">
+            <label for="producto-compra">Producto que debe comprar *</label>
+            <input id="producto-compra" [(ngModel)]="formulario.producto" type="text" placeholder="Ej. Café molido" />
+          </div>
+          <div class="form-group">
+            <label for="producto-gratis">Producto gratuito *</label>
+            <input id="producto-gratis" [(ngModel)]="formulario.productoGratis" type="text" placeholder="Ej. Taza promocional" />
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'vale-regalo'" class="form-grid type-fields">
+          <div class="form-group">
+            <label for="tipo-regalo">Tipo de vale o regalo *</label>
+            <input id="tipo-regalo" [(ngModel)]="formulario.regalo" type="text" placeholder="Ej. Vale para próxima compra" />
+          </div>
+          <div class="form-group">
+            <label for="monto-vale">Valor del vale (Q) *</label>
+            <input id="monto-vale" [(ngModel)]="formulario.montoVale" type="number" min="0.01" step="0.01" />
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'segundo-mitad'" class="form-grid type-fields">
+          <div class="form-group">
+            <label for="producto-mitad">Producto participante *</label>
+            <input id="producto-mitad" [(ngModel)]="formulario.producto" type="text" placeholder="Ej. Jabón artesanal" />
+          </div>
+          <div class="rule-preview"><strong>Regla:</strong> la segunda unidad se ofrece a mitad de precio.</div>
+        </div>
+
+        <div *ngSwitchCase="'mayoreo'" class="form-grid type-fields">
+          <div class="form-group">
+            <label for="producto-mayoreo">Producto o familia *</label>
+            <input id="producto-mayoreo" [(ngModel)]="formulario.producto" type="text" placeholder="Ej. Galletas surtidas" />
+          </div>
+          <div class="form-group">
+            <label for="cantidad-minima">Cantidad mínima *</label>
+            <input id="cantidad-minima" [(ngModel)]="formulario.cantidadMinima" type="number" min="2" step="1" />
+          </div>
+          <div class="form-group">
+            <label for="precio-mayoreo">Precio por unidad al mayoreo (Q) *</label>
+            <input id="precio-mayoreo" [(ngModel)]="formulario.precioMayorista" type="number" min="0.01" step="0.01" />
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'puntos'" class="form-grid type-fields">
+          <div class="form-group">
+            <label for="producto-puntos">Producto o familia *</label>
+            <input id="producto-puntos" [(ngModel)]="formulario.producto" type="text" placeholder="Ej. Productos de cuidado personal" />
+          </div>
+          <div class="form-group">
+            <label for="puntos-unidad">Puntos por unidad *</label>
+            <input id="puntos-unidad" [(ngModel)]="formulario.puntosPorUnidad" type="number" min="1" step="1" />
+          </div>
+          <div class="form-group">
+            <label for="valor-punto">Descuento al canjear cada punto (Q) *</label>
+            <input id="valor-punto" [(ngModel)]="formulario.valorPunto" type="number" min="0.01" step="0.01" />
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="form-actions">
+        <button type="button" class="btn-primary" (click)="agregarVistaPrevia()">Agregar a vista previa</button>
+      </div>
+    </section>
+
+    <aside class="preview-card">
+      <div class="preview-heading">
+        <div>
+          <h2>Vista previa</h2>
+          <p>{{ promociones.length }} promoción(es) de ejemplo</p>
+        </div>
+        <span class="prototype-badge">Prototipo</span>
+      </div>
+
+      <div class="empty-preview" *ngIf="promociones.length === 0">
+        <strong>Aún no hay promociones</strong>
+        <p>Elige un tipo, completa sus datos y agrégala para ver cómo quedaría.</p>
+      </div>
+
+      <article class="preview-item" *ngFor="let promocion of promociones">
+        <div class="preview-item-heading">
+          <span class="preview-type">{{ tituloTipo(promocion.tipo) }}</span>
+          <button type="button" class="remove-button" (click)="quitarVistaPrevia(promocion.id)" [attr.aria-label]="'Quitar ' + promocion.nombre">Quitar</button>
+        </div>
+        <h3>{{ promocion.nombre }}</h3>
+        <p>{{ promocion.resumen }}</p>
+      </article>
+    </aside>
+  </div>
+</div>

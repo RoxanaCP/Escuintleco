@@ -1,0 +1,55 @@
+<div class="page-container">
+  <div class="page-header">
+    <div><h1>Catalogo de Proveedores</h1><p>Gestion de proveedores</p></div>
+    <div class="header-actions">
+      <a routerLink="/dashboard" class="btn-back">&#8592; Volver</a>
+      <button class="btn-primary" (click)="nuevo()">+ Nuevo Proveedor</button>
+    </div>
+  </div>
+
+  <div class="alert-success" *ngIf="mensaje">{{ mensaje }}</div>
+  <div class="alert-error" *ngIf="error && !mostrarFormulario">{{ error }}</div>
+
+  <div class="search-bar">
+    <input type="text" [(ngModel)]="busqueda" placeholder="Buscar por nombre..." />
+  </div>
+
+  <div class="table-wrapper">
+    <div class="loading" *ngIf="loading">Cargando proveedores...</div>
+    <table *ngIf="!loading">
+      <thead><tr><th>Nombre</th><th>Telefono</th><th>Email</th><th>Direccion</th><th>Acciones</th></tr></thead>
+      <tbody>
+        <tr *ngFor="let p of proveedoresFiltrados()">
+          <td>{{ p.nombre }}</td>
+          <td>{{ p.telefono || '—' }}</td>
+          <td>{{ p.email || '—' }}</td>
+          <td>{{ p.direccion || '—' }}</td>
+          <td class="actions">
+            <button class="btn-edit" (click)="editar(p)">Editar</button>
+            <button class="btn-del" (click)="eliminar(p.id!)">Eliminar</button>
+          </td>
+        </tr>
+        <tr *ngIf="proveedoresFiltrados().length === 0">
+          <td colspan="5" class="empty">No se encontraron proveedores</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="modal-overlay" *ngIf="mostrarFormulario" (click)="cerrar()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h2>{{ modoEdicion ? 'Editar Proveedor' : 'Nuevo Proveedor' }}</h2>
+      <div class="alert-error" *ngIf="error">{{ error }}</div>
+      <div class="form-grid">
+        <div class="form-group"><label>Nombre *</label><input [(ngModel)]="proveedorForm.nombre" type="text" /></div>
+        <div class="form-group"><label>Telefono</label><input [(ngModel)]="proveedorForm.telefono" type="text" /></div>
+        <div class="form-group"><label>Email</label><input [(ngModel)]="proveedorForm.email" type="email" /></div>
+        <div class="form-group full"><label>Direccion</label><input [(ngModel)]="proveedorForm.direccion" type="text" /></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-secondary" (click)="cerrar()">Cancelar</button>
+        <button class="btn-primary" (click)="guardar()">{{ modoEdicion ? 'Actualizar' : 'Guardar' }}</button>
+      </div>
+    </div>
+  </div>
+</div>

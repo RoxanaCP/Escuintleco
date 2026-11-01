@@ -1,0 +1,60 @@
+<div class="page-container">
+  <div class="page-header">
+    <div><h1>Reportes</h1><p>Informes del negocio</p></div>
+    <a routerLink="/dashboard" class="btn-back">&#8592; Volver</a>
+  </div>
+
+  <div class="reportes-menu">
+    <button [class.active]="reporteActivo==='ventas'"   (click)="cargar('ventas')">Cierre del Dia</button>
+    <button [class.active]="reporteActivo==='clientes'" (click)="cargar('clientes')">Clientes</button>
+    <button [class.active]="reporteActivo==='compras'"  (click)="cargar('compras')">Compras / Existencias</button>
+  </div>
+
+  <div class="reporte-contenido">
+    <!-- Cierre del dia -->
+    <div *ngIf="reporteActivo==='ventas'">
+      <h3>Cierre del Dia — Corte de Caja</h3>
+      <div class="stats-row" *ngIf="cierre">
+        <div class="stat"><div class="stat-val">Q {{ cierre.totalVentas | number:'1.2-2' }}</div><div class="stat-lbl">Ventas del Dia</div></div>
+        <div class="stat"><div class="stat-val">{{ cierre.numeroTransacciones }}</div><div class="stat-lbl">Transacciones</div></div>
+        <div class="stat"><div class="stat-val">Q {{ cierre.montoApertura | number:'1.2-2' }}</div><div class="stat-lbl">Apertura de Caja</div></div>
+        <div class="stat"><div class="stat-val">Q {{ cierre.totalEnCaja | number:'1.2-2' }}</div><div class="stat-lbl">Total en Caja</div></div>
+      </div>
+    </div>
+
+    <!-- Clientes -->
+    <div *ngIf="reporteActivo==='clientes'">
+      <h3>Reporte de Clientes</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Nombre</th><th>NIT</th><th>Telefono</th><th>Email</th></tr></thead>
+          <tbody>
+            <tr *ngFor="let c of clientes">
+              <td>{{ c.nombre }}</td><td>{{ c.nit }}</td>
+              <td>{{ c.telefono || '—' }}</td><td>{{ c.email || '—' }}</td>
+            </tr>
+            <tr *ngIf="clientes.length === 0"><td colspan="4" class="empty">Sin clientes</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Existencias -->
+    <div *ngIf="reporteActivo==='compras'">
+      <h3>Reporte de Compras y Existencias</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Producto</th><th>Codigo</th><th>Stock Actual</th><th>Stock Minimo</th><th>Estado</th></tr></thead>
+          <tbody>
+            <tr *ngFor="let e of existencias">
+              <td>{{ e.nombre }}</td><td>{{ e.codigo }}</td>
+              <td>{{ e.stock }}</td><td>{{ e.stockMinimo }}</td>
+              <td><span class="badge" [class.badge-ok]="e.estado==='OK'" [class.badge-off]="e.estado==='BAJO'">{{ e.estado }}</span></td>
+            </tr>
+            <tr *ngIf="existencias.length === 0"><td colspan="5" class="empty">Sin productos</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

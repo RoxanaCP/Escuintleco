@@ -1,0 +1,64 @@
+<div class="page-container">
+  <div class="page-header">
+    <div><h1>Devoluciones</h1><p>Proceso de devolucion de productos</p></div>
+    <a routerLink="/dashboard" class="btn-back">&#8592; Volver</a>
+  </div>
+
+  <div class="alert-success" *ngIf="mensaje">{{ mensaje }}</div>
+  <div class="alert-error" *ngIf="error">{{ error }}</div>
+
+  <div class="form-card">
+    <h3>Registrar Devolucion</h3>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Producto *</label>
+        <select [(ngModel)]="productoId">
+          <option [ngValue]="null">-- Seleccionar producto --</option>
+          <option *ngFor="let p of productos" [ngValue]="p.id">{{ p.nombre }} ({{ p.codigo }})</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Cantidad *</label>
+        <input type="number" [(ngModel)]="cantidad" min="1" />
+      </div>
+      <div class="form-group">
+        <label>Numero de Factura (opcional)</label>
+        <input type="number" [(ngModel)]="ventaId" placeholder="ID de la venta" />
+      </div>
+      <div class="form-group">
+        <label>Tipo de Devolucion *</label>
+        <select [(ngModel)]="motivo">
+          <option value="">-- Seleccionar --</option>
+          <option value="DANO">Producto danado</option>
+          <option value="VENCIDO">Producto vencido</option>
+          <option value="ERROR">Error en despacho</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label>Descripcion</label>
+        <textarea [(ngModel)]="descripcion" rows="3" placeholder="Describe el motivo..."></textarea>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-primary" (click)="registrar()">Registrar Devolucion</button>
+    </div>
+  </div>
+
+  <div class="table-wrapper" style="margin-top:24px">
+    <table>
+      <thead><tr><th>Fecha</th><th>Producto</th><th>Cantidad</th><th>Motivo</th><th>Descripcion</th></tr></thead>
+      <tbody>
+        <tr *ngFor="let d of devoluciones">
+          <td>{{ d.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td>{{ d.producto?.nombre }}</td>
+          <td>{{ d.cantidad }}</td>
+          <td>{{ d.motivo }}</td>
+          <td>{{ d.descripcion || '—' }}</td>
+        </tr>
+        <tr *ngIf="devoluciones.length === 0">
+          <td colspan="5" class="empty">Sin devoluciones registradas</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

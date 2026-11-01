@@ -1,0 +1,90 @@
+<div class="factura-page">
+  <div class="no-print actions-bar">
+    <a routerLink="/venta" class="btn-secondary">&#8592; Nueva Venta</a>
+    <a routerLink="/dashboard" class="btn-secondary">Inicio</a>
+    <button class="btn-primary" (click)="imprimir()">Imprimir Factura</button>
+  </div>
+
+  <div class="loading" *ngIf="loading">Cargando factura...</div>
+  <div class="alert-error" *ngIf="error">{{ error }}</div>
+
+  <div class="factura-documento" *ngIf="venta">
+    <!-- Encabezado -->
+    <div class="factura-header">
+      <div class="empresa">
+        <h1>Las Casas del Escuintleco</h1>
+        <p>Sistema de Punto de Venta</p>
+        <p>Guatemala, C.A.</p>
+      </div>
+      <div class="factura-num">
+        <div class="num-label">FACTURA</div>
+        <div class="num-value">{{ venta.numeroFactura }}</div>
+        <div class="num-fecha">{{ venta.fecha | date:'dd/MM/yyyy HH:mm' }}</div>
+      </div>
+    </div>
+
+    <!-- Datos del cliente -->
+    <div class="factura-cliente">
+      <h3>Datos del Cliente</h3>
+      <div class="cliente-grid">
+        <div><label>Nombre:</label> <span>{{ venta.cliente?.nombre || 'Consumidor Final' }}</span></div>
+        <div><label>NIT:</label>    <span>{{ venta.cliente?.nit  || 'CF' }}</span></div>
+        <div><label>Cajero:</label> <span>{{ venta.usuario?.nombre }}</span></div>
+        <div><label>Forma de Pago:</label> <span>{{ venta.formaPago }}</span></div>
+      </div>
+    </div>
+
+    <!-- Detalle de productos -->
+    <table class="factura-tabla">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Producto</th>
+          <th>Codigo</th>
+          <th>Cantidad</th>
+          <th>Precio Unit.</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let d of venta.detalles; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ d.producto.nombre }}</td>
+          <td><code>{{ d.producto.codigo }}</code></td>
+          <td>{{ d.cantidad }}</td>
+          <td>Q {{ d.precioUnitario | number:'1.2-2' }}</td>
+          <td>Q {{ d.subtotal | number:'1.2-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Totales -->
+    <div class="factura-totales">
+      <div class="total-row"><span>Subtotal:</span>  <strong>Q {{ venta.subtotal  | number:'1.2-2' }}</strong></div>
+      <div class="total-row"><span>Descuento:</span> <strong>Q {{ venta.descuento | number:'1.2-2' }}</strong></div>
+      <div class="total-row total-final"><span>TOTAL:</span> <strong>Q {{ venta.total | number:'1.2-2' }}</strong></div>
+    </div>
+
+    <!-- QR y promocion -->
+    <div class="factura-qr">
+      <div class="qr-imagen">
+        <img [src]="venta.qrCode" alt="Codigo QR de promocion" />
+      </div>
+      <div class="qr-texto">
+        <h4>Escanea y obtén tu promocion</h4>
+        <p>Lee este codigo QR con tu celular para conocer la promocion especial de tu proxima compra.</p>
+        <div class="promo-tipos">
+          <span>Descuento especial</span>
+          <span>Producto gratuito</span>
+          <span>2do a mitad de precio</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pie de factura -->
+    <div class="factura-pie">
+      <p>Gracias por su compra en Las Casas del Escuintleco</p>
+      <p>Conserve esta factura para cualquier reclamacion.</p>
+    </div>
+  </div>
+</div>

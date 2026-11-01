@@ -1,0 +1,32 @@
+<div class="page-container">
+  <div class="page-header">
+    <div><h1>Apertura / Cierre de Caja</h1><p>Control de caja diaria</p></div>
+    <a routerLink="/dashboard" class="btn-back">&#8592; Volver</a>
+  </div>
+
+  <div class="alert-success" *ngIf="mensaje">{{ mensaje }}</div>
+  <div class="alert-error" *ngIf="error">{{ error }}</div>
+
+  <div class="caja-grid">
+    <div class="caja-card apertura">
+      <h3>Apertura de Caja</h3>
+      <div class="form-group">
+        <label>Monto de Apertura (Q)</label>
+        <input type="number" [(ngModel)]="montoApertura" min="0" step="0.01" />
+      </div>
+      <button class="btn-primary" (click)="abrirCaja()">Abrir Caja</button>
+    </div>
+
+    <div class="caja-card cierre">
+      <h3>Cierre de Caja</h3>
+      <div class="resumen" *ngIf="corte">
+        <div class="resumen-row"><span>Fecha:</span><strong>{{ corte.fecha }}</strong></div>
+        <div class="resumen-row"><span>Monto Apertura:</span><strong>Q {{ corte.montoApertura | number:'1.2-2' }}</strong></div>
+        <div class="resumen-row"><span>Ventas del Dia:</span><strong>Q {{ corte.totalVentas | number:'1.2-2' }}</strong></div>
+        <div class="resumen-row"><span>Transacciones:</span><strong>{{ corte.numeroTransacciones }}</strong></div>
+        <div class="resumen-row total"><span>Total en Caja:</span><strong>Q {{ corte.totalEnCaja | number:'1.2-2' }}</strong></div>
+      </div>
+      <button class="btn-primary cierre-btn" (click)="cerrarCaja()">Cerrar Caja y Generar Reporte</button>
+    </div>
+  </div>
+</div>

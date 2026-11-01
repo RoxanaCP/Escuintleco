@@ -1,0 +1,41 @@
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" [class.collapsed]="!menuAbierto">
+    <div class="sidebar-header">
+      <h2 *ngIf="menuAbierto">Escuintleco</h2>
+      <button class="toggle-btn" (click)="menuAbierto = !menuAbierto">&#9776;</button>
+    </div>
+
+    <nav class="nav-menu">
+      <a *ngFor="let item of menuItems"
+         class="nav-item"
+         [routerLink]="item.ruta"
+         routerLinkActive="active">
+        <span class="label" *ngIf="menuAbierto">{{ item.label }}</span>
+        <span class="label-short" *ngIf="!menuAbierto">{{ item.label[0] }}</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer" *ngIf="menuAbierto">
+      <div class="user-info">
+        <strong>{{ usuario?.nombre }}</strong>
+        <small>{{ usuario?.rol }}</small>
+      </div>
+      <button class="btn-logout" (click)="logout()">Cerrar Sesion</button>
+    </div>
+  </aside>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main-content">
+    <div class="welcome-banner">
+      <h1>Bienvenido, {{ usuario?.nombre }}</h1>
+      <p>Sistema de Punto de Venta — Las Casas del Escuintleco</p>
+    </div>
+
+    <div class="cards-grid">
+      <div class="card" *ngFor="let item of menuItems" (click)="irA(item.ruta)">
+        <div class="card-label">{{ item.label }}</div>
+      </div>
+    </div>
+  </main>
+</div>

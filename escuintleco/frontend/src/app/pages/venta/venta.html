@@ -1,0 +1,90 @@
+<div class="venta-layout">
+  <!-- Panel izquierdo: productos -->
+  <div class="panel-productos">
+    <div class="panel-header">
+      <h2>Nueva Venta</h2>
+      <a routerLink="/dashboard" class="btn-back">&#8592; Volver</a>
+    </div>
+
+    <!-- Filtros -->
+    <div class="filtros">
+      <input type="text" [(ngModel)]="busqueda" placeholder="Buscar producto..." />
+      <select [(ngModel)]="categoriaSeleccionada">
+        <option value="">Todas las categorias</option>
+        <option *ngFor="let c of categorias" [value]="c.id">{{ c.nombre }}</option>
+      </select>
+    </div>
+
+    <!-- Grid de productos -->
+    <div class="productos-grid">
+      <div class="producto-card" *ngFor="let p of productosFiltrados()"
+           (click)="agregarAlCarrito(p)"
+           [class.sin-stock]="p.stock === 0">
+        <div class="prod-categoria">{{ p.categoria?.nombre || 'General' }}</div>
+        <div class="prod-nombre">{{ p.nombre }}</div>
+        <div class="prod-codigo">{{ p.codigo }}</div>
+        <div class="prod-precio">Q {{ p.precioVenta | number:'1.2-2' }}</div>
+        <div class="prod-stock" [class.bajo]="p.stock <= 5">Stock: {{ p.stock }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel derecho: carrito -->
+  <div class="panel-carrito">
+    <h2>Detalle de Venta</h2>
+
+    <!-- Cliente -->
+    <div class="carrito-section">
+      <label>Cliente</label>
+      <select [(ngModel)]="clienteId">
+        <option [value]="null">Consumidor Final</option>
+        <option *ngFor="let c of clientes" [value]="c.id">{{ c.nombre }} - {{ c.nit }}</option>
+      </select>
+    </div>
+
+    <!-- Items -->
+    <div class="carrito-items">
+      <div class="empty-cart" *ngIf="carrito.length === 0">
+        <p>Sin productos agregados</p>
+        <small>Haz clic en un producto para agregarlo</small>
+      </div>
+
+      <div class="carrito-item" *ngFor="let item of carrito">
+        <div class="item-info">
+          <strong>{{ item.producto.nombre }}</strong>
+          <small>Q {{ item.producto.precioVenta | number:'1.2-2' }} c/u</small>
+        </div>
+        <div class="item-cantidad">
+          <button (click)="cambiarCantidad(item, -1)">-</button>
+          <span>{{ item.cantidad }}</span>
+          <button (click)="cambiarCantidad(item, +1)">+</button>
+        </div>
+        <div class="item-subtotal">Q {{ item.subtotal | number:'1.2-2' }}</div>
+        <button class="btn-quitar" (click)="quitarItem(item)">X</button>
+      </div>
+    </div>
+
+    <!-- Totales -->
+    <div class="carrito-totales">
+      <div class="total-row"><span>Subtotal</span><strong>Q {{ getTotal() | number:'1.2-2' }}</strong></div>
+      <div class="total-row"><span>Descuento</span><strong>Q 0.00</strong></div>
+      <div class="total-row total-final"><span>TOTAL</span><strong>Q {{ getTotal() | number:'1.2-2' }}</strong></div>
+    </div>
+
+    <!-- Forma de pago -->
+    <div class="carrito-section">
+      <label>Forma de Pago</label>
+      <div class="pago-opciones">
+        <button [class.selected]="formaPago==='EFECTIVO'" (click)="formaPago='EFECTIVO'">Efectivo</button>
+        <button [class.selected]="formaPago==='TARJETA'"  (click)="formaPago='TARJETA'">Tarjeta</button>
+        <button [class.selected]="formaPago==='DEBITO'"   (click)="formaPago='DEBITO'">Debito</button>
+      </div>
+    </div>
+
+    <div class="alert-error" *ngIf="error">{{ error }}</div>
+
+    <button class="btn-cobrar" (click)="procesarVenta()" [disabled]="loading || carrito.length === 0">
+      {{ loading ? 'Procesando...' : 'Cobrar — Q ' + (getTotal() | number:'1.2-2') }}
+    </button>
+  </div>
+</div>

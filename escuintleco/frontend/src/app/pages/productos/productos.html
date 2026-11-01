@@ -1,0 +1,116 @@
+<div class="page-container">
+  <div class="page-header">
+    <div>
+      <h1>Catalogo de Productos</h1>
+      <p>Gestion de inventario y precios</p>
+    </div>
+    <div class="header-actions">
+      <a routerLink="/dashboard" class="btn-back">&#8592; Volver</a>
+      <button class="btn-primary" (click)="nuevo()">+ Nuevo Producto</button>
+    </div>
+  </div>
+
+  <div class="alert-success" *ngIf="mensaje">{{ mensaje }}</div>
+  <div class="alert-error"   *ngIf="error && !mostrarFormulario">{{ error }}</div>
+
+  <!-- Buscador -->
+  <div class="search-bar">
+    <input type="text" [(ngModel)]="busqueda" placeholder="Buscar por nombre o codigo..." />
+  </div>
+
+  <!-- Tabla -->
+  <div class="table-wrapper">
+    <div class="loading" *ngIf="loading">Cargando productos...</div>
+    <table *ngIf="!loading">
+      <thead>
+        <tr>
+          <th>Codigo</th>
+          <th>Nombre</th>
+          <th>Categoria</th>
+          <th>P. Compra</th>
+          <th>P. Venta</th>
+          <th>Stock</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of productosFiltrados()">
+          <td><code>{{ p.codigo }}</code></td>
+          <td>{{ p.nombre }}</td>
+          <td>{{ p.categoria?.nombre || '—' }}</td>
+          <td>Q {{ p.precioCompra | number:'1.2-2' }}</td>
+          <td>Q {{ p.precioVenta | number:'1.2-2' }}</td>
+          <td [class.stock-bajo]="p.stock <= (p.stockMinimo || 5)">{{ p.stock }}</td>
+          <td><span class="badge" [class.badge-ok]="p.activo" [class.badge-off]="!p.activo">{{ p.activo ? 'Activo' : 'Inactivo' }}</span></td>
+          <td class="actions">
+            <button class="btn-edit" (click)="editar(p)">Editar</button>
+            <button class="btn-del"  (click)="eliminar(p.id!)">Eliminar</button>
+          </td>
+        </tr>
+        <tr *ngIf="productosFiltrados().length === 0">
+          <td colspan="8" class="empty">No se encontraron productos</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- MODAL FORMULARIO -->
+  <div class="modal-overlay" *ngIf="mostrarFormulario" (click)="cerrar()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h2>{{ modoEdicion ? 'Editar Producto' : 'Nuevo Producto' }}</h2>
+
+      <div class="alert-error" *ngIf="error">{{ error }}</div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Codigo *</label>
+          <input [(ngModel)]="productoForm.codigo" type="text" placeholder="Ej: PAS001" />
+        </div>
+        <div class="form-group">
+          <label>Nombre *</label>
+          <input [(ngModel)]="productoForm.nombre" type="text" placeholder="Nombre del producto" />
+        </div>
+        <div class="form-group full">
+          <label>Descripcion</label>
+          <input [(ngModel)]="productoForm.descripcion" type="text" placeholder="Descripcion opcional" />
+        </div>
+        <div class="form-group">
+          <label>Precio Compra *</label>
+          <input [(ngModel)]="productoForm.precioCompra" type="number" step="0.01" min="0" />
+        </div>
+        <div class="form-group">
+          <label>Precio Venta *</label>
+          <input [(ngModel)]="productoForm.precioVenta" type="number" step="0.01" min="0" />
+        </div>
+        <div class="form-group">
+          <label>Stock *</label>
+          <input [(ngModel)]="productoForm.stock" type="number" min="0" />
+        </div>
+        <div class="form-group">
+          <label>Stock Minimo</label>
+          <input [(ngModel)]="productoForm.stockMinimo" type="number" min="0" />
+        </div>
+        <div class="form-group">
+          <label>Categoria</label>
+          <select [(ngModel)]="$any(productoForm).categoriaId">
+            <option value="">-- Seleccionar --</option>
+            <option *ngFor="let c of categorias" [value]="c.id">{{ c.nombre }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Proveedor</label>
+          <select [(ngModel)]="$any(productoForm).proveedorId">
+            <option value="">-- Seleccionar --</option>
+            <option *ngFor="let p of proveedores" [value]="p.id">{{ p.nombre }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-secondary" (click)="cerrar()">Cancelar</button>
+        <button class="btn-primary" (click)="guardar()">{{ modoEdicion ? 'Actualizar' : 'Guardar' }}</button>
+      </div>
+    </div>
+  </div>
+</div>
