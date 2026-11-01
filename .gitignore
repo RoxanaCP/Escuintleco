@@ -1,0 +1,28 @@
+# ============================================================
+# .gitignore raiz - Las Casas del Escuintleco
+# ============================================================
+
+# --- Backend (Java / Maven) ---
+escuintleco/backend/target/
+
+# --- Frontend (Angular / Node) ---
+escuintleco/frontend/node_modules/
+escuintleco/frontend/dist/
+escuintleco/frontend/.angular/
+escuintleco/frontend/coverage/
+
+# --- Entornos / secretos ---
+*.env
+.env
+
+# --- IDE / editores ---
+.idea/
+.vscode/
+*.iml
+
+# --- Sistema operativo ---
+Thumbs.db
+.DS_Store
+
+# --- Logs ---
+*.log
