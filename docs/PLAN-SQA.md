@@ -25,6 +25,7 @@ la base de datos MySQL 8 del proyecto.
 - IEEE 730 — Standard for Software Quality Assurance Plans.
 - Guía Técnica y Manual de Uso: `docs/GUIA-TECNICA.md`
 - Reporte de Métricas: `docs/METRICAS.md`
+- Workflow del pipeline: `.github/workflows/ci.yml`
 
 ---
 

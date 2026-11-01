@@ -28,7 +28,7 @@ jobs:
       - name: Configurar Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Compilar backend (sin tests)
         working-directory: escuintleco/backend
@@ -99,7 +99,7 @@ jobs:
       - name: Configurar Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Instalar dependencias
         working-directory: escuintleco/frontend
@@ -150,7 +150,7 @@ jobs:
       - name: Configurar Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Cargar esquema y datos iniciales en MySQL
         run: mysql -h 127.0.0.1 -u root -proot escuintleco_db < escuintleco/database/escuintleco_db.sql
@@ -213,7 +213,7 @@ jobs:
       - name: Configurar Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       # Regenera los reportes de cobertura para que SonarCloud los ingiera
       - name: Generar cobertura del backend
