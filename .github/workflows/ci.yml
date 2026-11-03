@@ -47,7 +47,7 @@ jobs:
   # ============================================================
   test-backend:
     name: Test Backend
-    runs-on: ubuntu-latest
+    ms-on: ubuntu-latest
     needs: build
     # Base de datos MySQL para pruebas de integracion
     services:
@@ -104,6 +104,11 @@ jobs:
       - name: Instalar dependencias
         working-directory: escuintleco/frontend
         run: npm ci --legacy-peer-deps
+
+      - name: Analisis estatico con ESLint (linter)
+        working-directory: escuintleco/frontend
+        run: npm run lint
+        continue-on-error: true
 
       - name: Ejecutar pruebas con cobertura (headless)
         working-directory: escuintleco/frontend
