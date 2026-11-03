@@ -105,6 +105,11 @@ jobs:
         working-directory: escuintleco/frontend
         run: npm ci --legacy-peer-deps
 
+      - name: Analisis estatico con ESLint (linter)
+        working-directory: escuintleco/frontend
+        run: npm run lint
+        continue-on-error: true
+
       - name: Ejecutar pruebas con cobertura (headless)
         working-directory: escuintleco/frontend
         run: npm run test:ci
