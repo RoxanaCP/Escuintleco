@@ -47,7 +47,7 @@ jobs:
   # ============================================================
   test-backend:
     name: Test Backend
-    ms-on: ubuntu-latest
+    runs-on: ubuntu-latest
     needs: build
     # Base de datos MySQL para pruebas de integracion
     services:
