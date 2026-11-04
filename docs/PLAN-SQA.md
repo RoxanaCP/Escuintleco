@@ -29,24 +29,7 @@ la base de datos MySQL 8 del proyecto.
 
 ---
 
-## 3. Gestión
-
-### Organización
-Proyecto académico desarrollado por el estudiante, quien asume los roles de
-desarrollo, pruebas y aseguramiento de calidad.
-
-### Responsabilidades
-- **Desarrollo:** implementar funcionalidades y sus pruebas.
-- **Aseguramiento de calidad:** mantener el pipeline, los umbrales y el Quality Gate.
-- **Revisión:** revisar los Pull Requests antes de aprobar el merge.
-
-### Puntos de control
-Cada Pull Request a `main` es un punto de control obligatorio: el pipeline debe
-aprobar todas sus etapas antes de permitir el merge.
-
----
-
-## 4. Documentación
+## 3. Documentación
 
 La documentación del proyecto se mantiene en formato Markdown en el repositorio:
 - Plan de SQA (este documento).
@@ -56,7 +39,7 @@ La documentación del proyecto se mantiene en formato Markdown en el repositorio
 
 ---
 
-## 5. Estándares y Prácticas
+## 4. Estándares y Prácticas
 
 ### Estándares de código
 - **Backend:** convenciones de Java y Spring Boot; análisis con SonarCloud.
@@ -69,7 +52,7 @@ La documentación del proyecto se mantiene en formato Markdown en el repositorio
 
 ---
 
-## 6. Revisiones
+## 5. Revisiones
 
 ### Revisión automatizada
 El pipeline CI/CD ejecuta en cada Pull Request:
@@ -85,7 +68,7 @@ aprobar.
 
 ---
 
-## 7. Pruebas
+## 6. Pruebas
 
 | Tipo | Herramienta | Alcance |
 |------|-------------|---------|
@@ -100,7 +83,7 @@ localmente (ver la Guía Técnica).
 
 ---
 
-## 8. Reporte de Problemas y Acciones Correctivas
+## 7. Reporte de Problemas y Acciones Correctivas
 
 - Los fallos del pipeline se reportan automáticamente en cada Pull Request de GitHub.
 - Si una etapa falla, el merge queda bloqueado hasta que se corrija.
@@ -111,7 +94,7 @@ localmente (ver la Guía Técnica).
 
 ---
 
-## 9. Herramientas
+## 8. Herramientas
 
 | Categoría | Herramienta |
 |-----------|-------------|
@@ -127,7 +110,7 @@ localmente (ver la Guía Técnica).
 
 ---
 
-## 10. Métricas y Quality Gate
+## 9. Métricas y Quality Gate
 
 ### Umbrales de cobertura
 - **Backend:** mínimo **60%** de cobertura de línea (JaCoCo `check`).
@@ -149,3 +132,19 @@ bloquea el merge del Pull Request.
 - Cantidad de problemas (bugs, code smells, vulnerabilidades) de SonarCloud.
 - Porcentaje de duplicación de código.
 - Resultado de las pruebas (aprobadas/fallidas).
+
+---
+
+## 10. Riesgos y Mitigaciones
+
+Identificación de los principales riesgos de calidad del proyecto y cómo se mitigan.
+
+| # | Riesgo | Impacto | Probabilidad | Mitigación |
+|---|--------|---------|--------------|------------|
+| R1 | Introducir una regresión (romper algo que funcionaba) | Alto | Media | El pipeline ejecuta todas las pruebas en cada cambio; si algo se rompe, el merge se bloquea |
+| R2 | Bajar la cobertura de código al agregar código sin pruebas | Medio | Media | Umbrales obligatorios de cobertura (JaCoCo 60%, Istanbul 50%) que hacen fallar el pipeline |
+| R3 | Acumulación de deuda técnica (code smells, bugs) | Medio | Alta | SonarCloud detecta y reporta los issues; el Quality Gate evalúa el código nuevo para no introducir más deuda |
+| R4 | Subir código directo a `main` sin revisión | Alto | Baja | Protección de rama: push directo bloqueado, Pull Request obligatorio |
+| R5 | Exposición de credenciales o secretos en el repositorio | Alto | Baja | Las credenciales se manejan como variables de entorno y secretos de GitHub (`SONAR_TOKEN`), no en el código |
+| R6 | Fallo de la integración con SonarCloud (token o configuración) | Bajo | Media | El token está documentado en la guía técnica; el job `analyze` reporta el error claramente si falla |
+| R7 | Dependencias desactualizadas o vulnerables | Medio | Media | SonarCloud y el análisis estático ayudan a detectar problemas; las versiones están fijadas en `pom.xml` y `package.json` |

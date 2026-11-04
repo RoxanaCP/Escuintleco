@@ -3,7 +3,7 @@
 Proyecto: Las Casas del Escuintleco
 Stack: Java 21 + Spring Boot 3.2.5 (backend) · Angular 22 (frontend) · MySQL 8
 
-Este documento registra las métricas de calidad del software **antes** y **después**
+Este documento registra las métricas de calidad del software antes y después
 de la intervención de Aseguramiento de la Calidad (SQA): pruebas automatizadas,
 cobertura de código, análisis estático y pipeline CI/CD.
 
@@ -55,7 +55,7 @@ y el pipeline CI/CD.
 | Protección de rama | Documentada (PR + status checks) | — |
 
 ### Notas
-- **Total de pruebas automatizadas: 34** (19 backend + 15 frontend) + 1 flujo E2E.
+- Total de pruebas automatizadas: 34 (19 backend + 15 frontend) + 1 flujo E2E.
 - Las clases con lógica de negocio crítica (ProductoService, VentaService) superan
   el umbral del 60% exigido por JaCoCo.
 - Las métricas de SonarCloud (code smells, bugs, duplicación) se obtienen al ejecutar
@@ -80,13 +80,13 @@ cambio podía romper funcionalidad sin que nadie se enterara, y no había forma 
 de medir la calidad del código.
 
 Después de la intervención:
-- Cada cambio pasa automáticamente por **build, pruebas, análisis estático y reporte**.
-- Las **reglas de negocio críticas** (cálculo de totales, control de stock) quedaron
+- Cada cambio pasa automáticamente por build, pruebas, análisis estático y reporte.
+- Las reglas de negocio críticas (cálculo de totales, control de stock) quedaron
   cubiertas por pruebas que se ejecutan en cada cambio, protegiendo contra regresiones.
-- El **Quality Gate** impide que entre a `main` código que no cumpla los umbrales de
+- El Quality Gate impide que entre a `main` código que no cumpla los umbrales de
   cobertura o que introduzca problemas detectados por SonarCloud.
-- La **protección de rama** garantiza revisión y validación antes de cada merge.
+- La protección de rama garantiza revisión y validación antes de cada merge.
 
-En resumen, el proyecto pasó de **cero aseguramiento de calidad automatizado** a un
+En resumen, el proyecto pasó de cero aseguramiento de calidad automatizado a un
 flujo CI/CD completo con controles de SQA que se aplican de forma consistente y
 objetiva en cada cambio.
