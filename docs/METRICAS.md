@@ -1,4 +1,4 @@
-# Reporte de Métricas de Calidad
+﻿# Reporte de Métricas de Calidad
 
 Proyecto: Las Casas del Escuintleco
 Stack: Java 21 + Spring Boot 3.2.5 (backend) · Angular 22 (frontend) · MySQL 8
@@ -41,23 +41,24 @@ y el pipeline CI/CD.
 
 | Métrica | Backend | Frontend |
 |---------|---------|----------|
-| Pruebas unitarias | 13 (ProductoService, VentaService) | 15 (auth, producto, login) |
-| Pruebas de integración | 6 (ProductoController, AuthController) | — |
+| Pruebas unitarias | 45 (servicios, JwtUtil y JwtFilter) | 130 en total (servicios, guard, interceptor y componentes) |
+| Pruebas de integración | 34 (todos los controllers REST, con MockMvc) | — |
 | Pruebas E2E | 1 flujo (4 requests, 9 asserts) con Newman | — |
-| Cobertura de líneas (clases probadas) | ProductoService 81%, VentaService 96% | 95.12% |
-| Cobertura de branches | — | 100% |
-| Cobertura de funciones | — | 89.47% |
-| Umbral de cobertura exigido | 60% (JaCoCo `check`) | 50% (Karma `check`) |
+| Cobertura de líneas | 86% (medida sobre todo el backend, sin model, dto ni clase principal) | 97.81% |
+| Cobertura de branches | — | 82.01% |
+| Cobertura de funciones | — | 93.56% |
+| Umbral de cobertura exigido | 60% sobre todo el backend (JaCoCo check) | 50% (Karma check) |
 | Análisis estático (SonarCloud) | Configurado (Java) | Configurado (TypeScript) |
 | Linter (ESLint) | — | Configurado (reporta violaciones) |
 | Pipeline CI/CD | GitHub Actions (4 etapas) | GitHub Actions (4 etapas) |
-| Quality Gate | Activo (`qualitygate.wait`) | Activo |
-| Protección de rama | Documentada (PR + status checks) | — |
+| Quality Gate | Activo (qualitygate.wait) | Activo |
+| Protección de rama | PR obligatorio + status checks | — |
 
 ### Notas
-- Total de pruebas automatizadas: 34 (19 backend + 15 frontend) + 1 flujo E2E.
-- Las clases con lógica de negocio crítica (ProductoService, VentaService) superan
-  el umbral del 60% exigido por JaCoCo.
+- Total de pruebas automatizadas: 209 (79 backend + 130 frontend) + 1 flujo E2E de 4 requests.
+- El umbral del 60% de JaCoCo se aplica a todo el backend; la cobertura medida es 86%.
+- En el frontend, los 21 archivos fuente están incluidos en el reporte de cobertura,
+  por lo que el 97.81% refleja todo el código y no solo una parte.
 - Las métricas de SonarCloud (code smells, bugs, duplicación) se obtienen al ejecutar
   el pipeline con el `SONAR_TOKEN` configurado; se registran en el dashboard de
   SonarCloud del proyecto.
@@ -68,8 +69,8 @@ y el pipeline CI/CD.
 
 | Dimensión | Antes | Después |
 |-----------|-------|---------|
-| Pruebas automatizadas | 0 | 35 (19 BE + 15 FE + 1 flujo E2E) |
-| Cobertura medida | Ninguna | Backend y frontend con umbral obligatorio |
+| Pruebas automatizadas | 0 | 209 (79 BE + 130 FE) + 1 flujo E2E |
+| Cobertura medida | Ninguna | Backend 86% y frontend 97.81%, con umbral obligatorio |
 | Análisis estático | Ninguno | SonarCloud + ESLint |
 | Verificación en cada cambio | Manual / inexistente | Automática vía pipeline |
 | Protección de la rama main | Ninguna | PR obligatorio + quality gate |
@@ -81,8 +82,7 @@ de medir la calidad del código.
 
 Después de la intervención:
 - Cada cambio pasa automáticamente por build, pruebas, análisis estático y reporte.
-- Las reglas de negocio críticas (cálculo de totales, control de stock) quedaron
-  cubiertas por pruebas que se ejecutan en cada cambio, protegiendo contra regresiones.
+- Las reglas de negocio (cálculo de totales, control de stock, devoluciones, cierre\n  de caja) y la seguridad (JWT) quedaron cubiertas por pruebas que se ejecutan en cada cambio, protegiendo contra regresiones.
 - El Quality Gate impide que entre a `main` código que no cumpla los umbrales de
   cobertura o que introduzca problemas detectados por SonarCloud.
 - La protección de rama garantiza revisión y validación antes de cada merge.
