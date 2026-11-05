@@ -73,8 +73,10 @@ class VentaServiceTest {
         // 5 unidades a Q8.00 = Q40.00
         Venta venta = ventaService.procesarVenta(crearRequest(1L, 5), "admin");
 
+        // DEMO: valor incorrecto a proposito para demostrar que el pipeline falla.
+        // El total real es 40.00; aqui esperamos 999.00 para provocar un fallo.
         assertThat(venta.getSubtotal()).isEqualByComparingTo("40.00");
-        assertThat(venta.getTotal()).isEqualByComparingTo("40.00");
+        assertThat(venta.getTotal()).isEqualByComparingTo("999.00");
     }
 
     @Test
