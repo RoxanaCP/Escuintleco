@@ -41,10 +41,14 @@ y el pipeline CI/CD.
 
 | Métrica | Backend | Frontend |
 |---------|---------|----------|
-| Pruebas unitarias | 45 (servicios, JwtUtil y JwtFilter) | 130 en total (servicios, guard, interceptor y componentes) |
+| Pruebas unitarias | 45 (servicios, JwtUtil y JwtFilter) | 130 (servicios, guard, interceptor y componentes) |
 | Pruebas de integración | 34 (todos los controllers REST, con MockMvc) | — |
 | Pruebas E2E | 1 flujo (4 requests, 9 asserts) con Newman | — |
-| Cobertura de líneas | 86% (medida sobre todo el backend, sin model, dto ni clase principal) | 97.81% |
+| Cobertura de líneas (JaCoCo backend / Istanbul frontend) | 86% | 97.81% |
+| Cobertura global del proyecto (SonarCloud) | 51.3% (combina backend + frontend) | — |
+| Issues de SonarCloud | 67 | — |
+| Duplicación de código (SonarCloud) | 0.0% | — |
+| Security rating (SonarCloud) | A | — |
 | Cobertura de branches | — | 82.01% |
 | Cobertura de funciones | — | 93.56% |
 | Umbral de cobertura exigido | 60% sobre todo el backend (JaCoCo check) | 50% (Karma check) |
@@ -70,7 +74,7 @@ y el pipeline CI/CD.
 | Dimensión | Antes | Después |
 |-----------|-------|---------|
 | Pruebas automatizadas | 0 | 209 (79 BE + 130 FE) + 1 flujo E2E |
-| Cobertura medida | Ninguna | Backend 86% y frontend 97.81%, con umbral obligatorio |
+| Cobertura medida | Ninguna | Global 51.3% (SonarCloud); backend 86% y frontend 97.81% con umbral obligatorio |
 | Análisis estático | Ninguno | SonarCloud + ESLint |
 | Verificación en cada cambio | Manual / inexistente | Automática vía pipeline |
 | Protección de la rama main | Ninguna | PR obligatorio + quality gate |
@@ -82,7 +86,9 @@ de medir la calidad del código.
 
 Después de la intervención:
 - Cada cambio pasa automáticamente por build, pruebas, análisis estático y reporte.
-- Las reglas de negocio (cálculo de totales, control de stock, devoluciones, cierre\n  de caja) y la seguridad (JWT) quedaron cubiertas por pruebas que se ejecutan en cada cambio, protegiendo contra regresiones.
+- Las reglas de negocio (cálculo de totales, control de stock, devoluciones, cierre
+  de caja) y la seguridad (JWT) quedaron cubiertas por pruebas que se ejecutan en
+  cada cambio, protegiendo contra regresiones.
 - El Quality Gate impide que entre a `main` código que no cumpla los umbrales de
   cobertura o que introduzca problemas detectados por SonarCloud.
 - La protección de rama garantiza revisión y validación antes de cada merge.

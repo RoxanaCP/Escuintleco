@@ -38,6 +38,11 @@ La cobertura del backend se mide sobre todo el proyecto, excluyendo únicamente 
 clases sin lógica (`model`, `dto` y la clase principal). La del frontend incluye los
 21 archivos fuente de la aplicación.
 
+SonarCloud, que combina backend y frontend sin exclusiones, reporta una cobertura
+global del proyecto de **51.3%**. Además registra **67 issues** de calidad (deuda
+técnica heredada), **0.0%** de duplicación y una calificación de seguridad **A**.
+El Quality Gate está en estado **Passed**.
+
 ### Cobertura del backend por paquete
 
 | Paquete | Cobertura de líneas |
