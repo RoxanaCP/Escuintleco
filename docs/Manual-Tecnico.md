@@ -1,4 +1,4 @@
-# Manual Técnico
+﻿# Manual Técnico
 
 Proyecto: Las Casas del Escuintleco
 
@@ -102,9 +102,14 @@ checks: `Build (backend + frontend)`, `Test Backend`, `Test Frontend`,
 
 ### Limitaciones conocidas
 
-- La cobertura de pruebas no abarca todo el proyecto: se priorizaron los módulos de
-  mayor riesgo (ventas, productos, autenticación). Los demás módulos están
-  identificados como trabajo pendiente.
+- La capa de configuración de seguridad (SecurityConfig) no tiene pruebas propias.
+  Su cobertura es 0%, lo que hace que el paquete security quede en 54%. La cobertura
+  global del backend (86%) supera el umbral igualmente.
+- Los componentes de Angular se prueban a nivel de lógica (clases), no con pruebas de
+  interfaz sobre el HTML renderizado.
+- Las pruebas de integración de los controllers usan una configuración de seguridad
+  simplificada (TestSecurityConfig), por lo que no validan las reglas reales de
+  autorización; esa parte la cubre el flujo E2E con Newman.
 - El Quality Gate de SonarCloud evalúa por defecto el código nuevo, por lo que los
   issues preexistentes (deuda técnica heredada) no bloquean el pipeline; quedan
   visibles en el dashboard de SonarCloud.

@@ -144,15 +144,11 @@
                         </goals>
                         <configuration>
                             <rules>
-                                <!-- El umbral del 60% aplica a las clases de servicio
-                                     con logica de negocio critica que estan cubiertas
-                                     por pruebas (ProductoService, VentaService). -->
+                                <!-- Umbral minimo del 60% de cobertura de lineas sobre
+                                     todo el backend (excluyendo model, dto y la clase
+                                     principal, que no contienen logica). -->
                                 <rule>
-                                    <element>CLASS</element>
-                                    <includes>
-                                        <include>com.escuintleco.service.ProductoService</include>
-                                        <include>com.escuintleco.service.VentaService</include>
-                                    </includes>
+                                    <element>BUNDLE</element>
                                     <limits>
                                         <limit>
                                             <counter>LINE</counter>

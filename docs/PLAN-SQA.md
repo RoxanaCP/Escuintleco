@@ -1,4 +1,4 @@
-# Plan de Aseguramiento de la Calidad del Software (SQA Plan)
+﻿# Plan de Aseguramiento de la Calidad del Software (SQA Plan)
 
 Proyecto: Las Casas del Escuintleco
 Estándar de referencia: IEEE 730 (Software Quality Assurance Plans)
@@ -72,9 +72,9 @@ aprobar.
 
 | Tipo | Herramienta | Alcance |
 |------|-------------|---------|
-| Unitaria (backend) | JUnit 5 + Mockito | Lógica de la capa de servicio |
-| Integración (backend) | Spring Boot Test + MockMvc | Controladores REST |
-| Unitaria (frontend) | Jasmine + Karma | Servicios y componentes Angular |
+| Unitaria (backend) | JUnit 5 + Mockito | Capa de servicio, JwtUtil y JwtFilter |
+| Integración (backend) | Spring Boot Test + MockMvc | Todos los controladores REST |
+| Unitaria (frontend) | Jasmine + Karma | Servicios, guard, interceptor y componentes Angular |
 | Regresión | Suites completas en CI | En cada PR y push a `main` |
 | E2E | Postman + Newman | Flujo crítico: login + CRUD de producto |
 

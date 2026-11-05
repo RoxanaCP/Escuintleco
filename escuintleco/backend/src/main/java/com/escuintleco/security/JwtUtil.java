@@ -44,7 +44,8 @@ public class JwtUtil {
         try {
             Jwts.parserBuilder().setSigningKey(getKey()).build().parseClaimsJws(token);
             return true;
-        } catch (JwtException e) {
+        } catch (JwtException | IllegalArgumentException e) {
+            // Token invalido, expirado, mal formado, vacio o nulo
             return false;
         }
     }
