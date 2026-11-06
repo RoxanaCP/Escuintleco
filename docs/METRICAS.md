@@ -3,7 +3,7 @@
 Proyecto: Las Casas del Escuintleco
 Stack: Java 21 + Spring Boot 3.2.5 (backend) · Angular 22 (frontend) · MySQL 8
 
-Este documento registra las métricas de calidad del software antes y después
+Este documento recopila las métricas de calidad del software antes y después
 de la intervención de Aseguramiento de la Calidad (SQA): pruebas automatizadas,
 cobertura de código, análisis estático y pipeline CI/CD.
 
@@ -11,7 +11,7 @@ cobertura de código, análisis estático y pipeline CI/CD.
 
 ## 1. Métricas ANTES de la intervención (línea base)
 
-Medición realizada sobre el estado inicial del proyecto, previo a agregar pruebas,
+Medición efectuada sobre el estado inicial del proyecto, previo a añadir pruebas,
 cobertura y análisis estático.
 
 | Métrica | Backend | Frontend |
@@ -30,13 +30,13 @@ cobertura y análisis estático.
 - El comando `mvn test` reportaba "No tests to run": el backend compilaba pero no
   tenía ninguna prueba automatizada.
 - El frontend no tenía pruebas escritas ni configuración de ejecución en CI.
-- No había ninguna verificación automática de calidad al hacer cambios.
+- No existía ninguna verificación automática de calidad al realizar cambios.
 
 ---
 
 ## 2. Métricas DESPUÉS de la intervención
 
-Medición realizada tras implementar las pruebas, la cobertura, el análisis estático
+Medición efectuada tras implementar las pruebas, la cobertura, el análisis estático
 y el pipeline CI/CD.
 
 | Métrica | Backend | Frontend |
@@ -93,6 +93,6 @@ Después de la intervención:
   cobertura o que introduzca problemas detectados por SonarCloud.
 - La protección de rama garantiza revisión y validación antes de cada merge.
 
-En resumen, el proyecto pasó de cero aseguramiento de calidad automatizado a un
-flujo CI/CD completo con controles de SQA que se aplican de forma consistente y
+En síntesis, el proyecto pasó de no tener aseguramiento de calidad automatizado a un
+flujo CI/CD completo con controles de SQA que se aplican de manera constante y
 objetiva en cada cambio.

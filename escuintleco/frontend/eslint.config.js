@@ -22,7 +22,7 @@ module.exports = tseslint.config(
         'error',
         { type: 'element', prefix: 'app', style: 'kebab-case' },
       ],
-      // Reglas relajadas para un proyecto academico
+      // Se reportan como advertencia (no bloquean) por el codigo existente
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-unused-vars': 'warn',
     },

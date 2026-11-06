@@ -35,8 +35,7 @@ module.exports = function (config) {
           lines: 50,
         },
       },
-      // Nota: el umbral minimo exigido sigue siendo 50% (ver PLAN-SQA.md).
-      // La cobertura medida actualmente es considerablemente mayor.
+      // Umbral minimo exigido: 50% (ver docs/PLAN-SQA.md).
     },
     reporters: ['progress', 'kjhtml'],
     browsers: ['Chrome'],
