@@ -9,9 +9,9 @@ Versión: 1.0
 ## 1. Propósito
 
 Este Plan de Aseguramiento de la Calidad del Software (SQA Plan) define las
-actividades, estándares, herramientas y procedimientos que garantizan la calidad del
-software del sistema de punto de venta "Las Casas del Escuintleco". El objetivo es
-asegurar que todo cambio en el código pase por verificaciones automáticas de calidad
+actividades, estándares, herramientas y procedimientos que aseguran la calidad del
+software del sistema de punto de venta "Las Casas del Escuintleco". La finalidad es
+garantizar que toda modificación en el código pase por verificaciones automáticas de calidad
 (pruebas, cobertura, análisis estático y quality gates) antes de ser aceptado en la
 rama principal del repositorio.
 
@@ -31,7 +31,7 @@ la base de datos MySQL 8 del proyecto.
 
 ## 3. Documentación
 
-La documentación del proyecto se mantiene en formato Markdown en el repositorio:
+La documentación del proyecto se conserva en formato Markdown dentro del repositorio:
 - Plan de SQA (este documento).
 - Reporte de métricas antes/después.
 - Guía técnica y manual de uso.
@@ -63,8 +63,8 @@ El pipeline CI/CD ejecuta en cada Pull Request:
 - Evaluación del Quality Gate.
 
 ### Revisión manual
-El autor del merge revisa el Pull Request y los resultados del pipeline antes de
-aprobar.
+El responsable del merge examina el Pull Request y los resultados del pipeline antes de
+aprobarlo.
 
 ---
 
@@ -86,7 +86,7 @@ localmente (ver la Guía Técnica).
 ## 7. Reporte de Problemas y Acciones Correctivas
 
 - Los fallos del pipeline se reportan automáticamente en cada Pull Request de GitHub.
-- Si una etapa falla, el merge queda bloqueado hasta que se corrija.
+- Si una etapa falla, el merge permanece bloqueado hasta que se solucione.
 - Los problemas de calidad detectados por SonarCloud se listan en el dashboard del
   proyecto en SonarCloud, con su severidad y ubicación.
 - La gestión de deuda técnica se realiza revisando periódicamente los issues de
@@ -137,7 +137,7 @@ bloquea el merge del Pull Request.
 
 ## 10. Riesgos y Mitigaciones
 
-Identificación de los principales riesgos de calidad del proyecto y cómo se mitigan.
+Identificación de los riesgos de calidad más relevantes del proyecto y cómo se reducen.
 
 | # | Riesgo | Impacto | Probabilidad | Mitigación |
 |---|--------|---------|--------------|------------|

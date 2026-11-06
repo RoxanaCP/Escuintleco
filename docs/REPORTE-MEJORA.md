@@ -2,9 +2,9 @@
 
 Proyecto: Las Casas del Escuintleco
 
-Este documento presenta la comparativa de métricas de calidad antes y después de
+Este documento expone la comparación de métricas de calidad antes y después de
 la intervención de Aseguramiento de la Calidad (SQA), junto con el análisis del
-impacto obtenido.
+impacto alcanzado.
 
 - Estado inicial detallado: ver `LINEA-BASE-CALIDAD.md`
 - Métricas completas: ver `METRICAS.md`
@@ -89,15 +89,15 @@ Antes de la intervención, el proyecto no contaba con ninguna red de seguridad d
 calidad: cualquier cambio podía romper funcionalidad existente sin que se detectara,
 y no había forma objetiva de medir la calidad del código.
 
-Después de la intervención, se logró:
+Después de la intervención, se consiguió:
 
 1. **Detección automática de regresiones:** las 209 pruebas corren en cada cambio,
    protegiendo la funcionalidad existente.
 2. **Cobertura medida y obligatoria:** las reglas de negocio (cálculo de totales,
    control de stock, devoluciones, cierre de caja) y la seguridad (JWT) quedaron
    cubiertas, y se exige un mínimo de cobertura sobre todo el proyecto.
-3. **Calidad de código visible:** SonarCloud y ESLint detectan y reportan los
-   problemas de calidad, permitiendo gestionar la deuda técnica.
+3. **Calidad de código visible:** SonarCloud y ESLint identifican y reportan los
+   problemas de calidad, lo que permite administrar la deuda técnica.
 4. **Control de cambios:** la protección de rama y el Quality Gate impiden que entre
    a `main` código que no cumpla los estándares definidos.
 5. **Un defecto real corregido:** al escribir las pruebas de `JwtUtil` se detectó que
@@ -106,8 +106,8 @@ Después de la intervención, se logró:
 
 ### Conclusión
 
-El proyecto pasó de cero aseguramiento de calidad automatizado a un flujo CI/CD
-completo con controles de SQA que se aplican de forma consistente y objetiva en cada
-cambio. La mejora es medible: de 0 a 209 pruebas, de 0% a 86% (backend) y 97.81%
+El proyecto pasó de no contar con aseguramiento de calidad automatizado a un flujo CI/CD
+completo con controles de SQA que se aplican de manera constante y objetiva en cada
+cambio. La mejora es cuantificable: de 0 a 209 pruebas, de 0% a 86% (backend) y 97.81%
 (frontend) de cobertura, y de ninguna verificación automática a un pipeline de 4
 etapas con quality gates.
