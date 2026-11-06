@@ -2,14 +2,14 @@
 
 Proyecto: Las Casas del Escuintleco
 
-Este documento registra los casos de prueba diseñados y ejecutados, con su
+Este documento recopila los casos de prueba diseñados y ejecutados, con su
 identificador, tipo, entrada, resultado esperado y estado. Todas las pruebas se
-ejecutan automáticamente en el pipeline CI/CD.
+corren automáticamente en el pipeline CI/CD.
 
 Leyenda de tipos: **U** = Unitaria · **I** = Integración · **E2E** = End-to-End
 
 Las columnas de "Entrada" y "Resultado esperado" describen el comportamiento que
-verifica cada caso. El detalle de cada aserción está en el archivo de pruebas indicado.
+comprueba cada caso. El detalle de cada aserción se encuentra en el archivo de pruebas indicado.
 
 ---
 
@@ -190,5 +190,5 @@ Resumen por archivo de pruebas (130 casos en total):
 | E2E (API) | 4 requests / 9 asserts | Todas aprobadas |
 | **Total (JUnit + Jasmine)** | **209** | **100% aprobadas** |
 
-Todas las pruebas se ejecutan automáticamente en el pipeline CI/CD en cada Pull
-Request y push a la rama `main`.
+Todas las pruebas corren automáticamente en el pipeline CI/CD con cada Pull
+Request y cada push a la rama `main`.

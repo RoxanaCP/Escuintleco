@@ -2,9 +2,9 @@
 
 Proyecto: Las Casas del Escuintleco
 
-Este manual describe la arquitectura del pipeline CI/CD, las decisiones técnicas
-tomadas y una guía de mantenimiento. Para el uso diario (correr pruebas, enviar un
-Pull Request) ver `GUIA-TECNICA.md`.
+Este manual detalla la arquitectura del pipeline CI/CD, las decisiones técnicas
+adoptadas y una guía de mantenimiento. Para el uso cotidiano (correr pruebas, enviar un
+Pull Request) consultar `GUIA-TECNICA.md`.
 
 ---
 
@@ -52,7 +52,7 @@ información entre ellos se pasa con artefactos (`upload-artifact` /
 
 ### 1.3 Quality gates en capas
 
-El pipeline rechaza código en tres niveles:
+El pipeline descarta código en tres niveles:
 
 1. **Pruebas:** si cualquier prueba falla, el job falla.
 2. **Cobertura:** JaCoCo (`check` en `pom.xml`) y Karma (`check` en `karma.conf.js`)
@@ -92,10 +92,10 @@ checks: `Build (backend + frontend)`, `Test Backend`, `Test Frontend`,
 | D3 | SonarCloud en lugar de SonarQube autohospedado | Evita mantener un servidor; soporta Java y TypeScript; es gratuito para repositorios públicos |
 | D4 | Postman/Newman para E2E | Más simple de escribir y ejecutar en CI que Selenium o Cypress; el enunciado lo permite |
 | D5 | Un contenedor de servicio MySQL en los jobs que lo necesitan | Pruebas realistas sin infraestructura externa; el contenedor se destruye al terminar el job |
-| D6 | Jobs separados con `needs` | Cada etapa es observable por separado; `test-backend`, `test-frontend` y `e2e` corren en paralelo, lo que acorta el tiempo total |
+| D6 | Jobs separados con `needs` | Cada etapa se puede observar por separado; `test-backend`, `test-frontend` y `e2e` corren en paralelo, lo que reduce el tiempo total |
 | D7 | Regenerar la cobertura dentro del job `analyze` | Los jobs no comparten disco, y SonarCloud necesita los reportes en la misma máquina donde se ejecuta el escaneo |
 | D8 | ESLint con `continue-on-error: true` | El código existente tiene deuda técnica que el linter detecta; se reporta sin bloquear el pipeline. SonarCloud evalúa el código nuevo |
-| D9 | Umbral de cobertura en 60% (backend) y 50% (frontend) | Valores alcanzables para un código que partía sin pruebas, y aun así exigentes |
+| D9 | Umbral de cobertura en 60% (backend) y 50% (frontend) | Valores factibles para un código que partía sin pruebas, y aun así exigentes |
 | D10 | Credenciales por variable de entorno (`DB_USERNAME`, `DB_PASSWORD`) y secretos de GitHub (`SONAR_TOKEN`) | Evita dejar contraseñas en el repositorio |
 | D11 | Node.js 22 en el pipeline | Angular CLI 22 exige Node 22.22 o superior; con Node 20 el build falla |
 | D12 | `npm ci --legacy-peer-deps` | Hay un conflicto de peer dependencies entre versiones de paquetes de Angular que se resuelve con esta opción |
@@ -119,7 +119,7 @@ checks: `Build (backend + frontend)`, `Test Backend`, `Test Frontend`,
 
 ## 3. Guía de Mantenimiento
 
-### 3.1 Agregar una prueba nueva
+### 3.1 Añadir una prueba nueva
 
 - **Backend:** crear una clase `*Test.java` en `escuintleco/backend/src/test/java/`
   siguiendo el paquete de la clase probada. `mvn verify` la detecta automáticamente.
@@ -156,7 +156,7 @@ ruleset de `main` deja de reconocerlo: el PR quedará en "Expected - Waiting for
 status to be reported". Actualizar los checks requeridos en Settings > Rules >
 Rulesets para que coincidan con los nombres reales.
 
-### 3.6 Diagnóstico de fallos comunes
+### 3.6 Diagnóstico de fallos frecuentes
 
 | Síntoma | Causa probable | Solución |
 |---------|----------------|----------|
