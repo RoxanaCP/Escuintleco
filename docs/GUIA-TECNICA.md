@@ -68,7 +68,7 @@ en dos eventos:
 - Al abrir o actualizar un **Pull Request** hacia `main`.
 - Al hacer **push** a `main`.
 
-Consta de las siguientes etapas (jobs):
+Está compuesto por las siguientes etapas (jobs):
 
 | Etapa | Job | Qué hace |
 |-------|-----|----------|
