@@ -114,6 +114,8 @@ Request y push a `main`, con 4 etapas:
 La rama `main` está protegida: todo cambio debe entrar por Pull Request y el pipeline
 debe aprobar antes de permitir el merge.
 
+Última verificación del pipeline: demostración de flujo de Pull Request.
+
 ---
 
 ## Documentación
