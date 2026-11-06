@@ -151,4 +151,6 @@ El flujo para un colaborador es:
 ### Reglas importantes
 - No se puede hacer push directo a `main`.
 - No se puede hacer merge si el pipeline no aprobó.
+- Si el pipeline falla, el log del job indica el archivo y la línea de la prueba que falló.
+
 - Los reportes de cobertura quedan disponibles como artefactos descargables del run.
