@@ -149,8 +149,7 @@ El flujo para un colaborador es:
 8. **Hacer merge** una vez aprobado el Pull Request y con el pipeline en verde.
 
 ### Reglas importantes
-- No se puede hacer push directo a `main`.
 - No se puede hacer merge si el pipeline no aprobó.
+- No se puede hacer push directo a `main`.
 - Si el pipeline falla, el log del job indica el archivo y la línea de la prueba que falló.
-
 - Los reportes de cobertura quedan disponibles como artefactos descargables del run.
